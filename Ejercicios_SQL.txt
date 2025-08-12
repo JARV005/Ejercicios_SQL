@@ -1,0 +1,102 @@
+
+SELECT * FROM users 
+
+/*
+ * 
+ * */
+select count(*) from users;
+
+/*
+ * Ordenar de manera inversa por id
+ * */
+SELECT * FROM users u
+ORDER BY id DESC;
+
+/**/
+SELECT * FROM users
+ORDER BY last_name  asc;
+
+/* 2.Seleccionar nombres, apellidos y email */
+select email,name, last_name from users;  
+
+/* 3.Mostrar usuarios con edad mayor a 30 */
+SELECT * FROM users WHERE edad >= 30;
+
+/* 4.Requiero la lista de mujeres que vivan en Colombia y tengan entre 25 y 40 años.*/
+SELECT  * from users WHERE gender = 'femenino' and  edad>25 and edad<40 and pais = 'Colombia';
+
+/* 5.Sácame los usuarios que tengan ingresos superiores a 5 millones de pesos.*/
+SELECT * from users where ingresos > '5000000';
+
+/* 6.Quiero ver todos los usuarios cuya profesión sea ‘Diseñador’ o ‘Ingeniero’.*/
+select * from users where profesion='diseño' or profesion='Ingeniería de sistemas'
+
+/* 7.Filtra los usuarios casados y con al menos 2 hijos, vamos a hacer una encuesta*/
+SELECT * FROM users where estado_civil = 1 and hijos >= 2;
+
+/* 8.Hazme una tabla con usuarios que tengan ingresos menores a sus egresos, para evaluar riesgo financiero.*/
+select * from users where ingresos < egresos;
+
+/* 9.¿Quiénes son los 10 usuarios con mayor edad? Los necesitamos para un plan senior.*/
+select * from users order by edad DESC limit 10;
+
+/* 10.Dame los 5 usuarios más jóvenes que vivan fuera de Colombia.*/
+select * from users where pais != 'Colombia' order by edad asc limit 5;
+
+/* 11.Necesito los usuarios cuyo email termine en @hotmail.com,
+ *  para verificar si los estamos migrando bien. */
+select * from users where email like '%@hotmail.com';
+
+/* 12.Muestra los usuarios con más de 3 hobbies registrados.*/
+select * from users where JSON_LENGTH(hobbies)>3
+
+/* 13.Haz una lista de usuarios que no tienen teléfono fijo ni celular.*/
+select * from users where phone like '% %' and cellphone like '% %';
+
+/* 14.Dame todos los usuarios con la palabra ‘arte’ o ‘dibujo’ en sus hobbies.*/
+
+SELECT  * from  users  where JSON_CONTAINS(hobbies,'"arte"') or JSON_CONTAINS(hobbies, '"cine"')
+
+/* 15.Consulta los usuarios cuya edad esté entre 18 y 25 años y que sean solteros.*/
+select *from users where edad >= 18 and edad <= 25 and estado_civil= 0; 
+
+/* 16.Muestra los usuarios con dirección vacía o nula.*/
+SELECT * FROM users WHERE address IS NULL OR address = '';
+
+/* 17.Quiero ver cuántos usuarios hay por cada país.*/
+SELECT pais, count(pais) from users group by pais;
+
+/* 18.¿Cuál es el promedio de edad de nuestros usuarios?*/
+select avg(edad) from users;
+
+/* 19.Calcula el ingreso promedio por país.*/
+select pais, avg(ingresos) from users group by pais;
+
+/* 20.¿Cuántos usuarios tienen hijos y cuántos no?.*/
+select sum(case when hijos = 0 then 1 else 0 end) as sin_hijos,
+sum(case when hijos >= 1 then 1 else 0 end) as con_hijos from users;
+
+/* 21.Dame una tabla con la cantidad de usuarios por género.*/
+SELECT gender, count(gender) from users group by gender;
+
+/*22. Haz un ranking de las profesiones más comunes entre nuestros usuarios.*/
+
+
+/*23. ¿Cuántos usuarios tienen entre 0 y 2 hijos? Agrúpalos.*/
+
+/*24. Filtra los usuarios cuyo nombre comience por la letra ‘J’.*/
+select * from users where name LIKE'J%';
+
+/*25. Muéstrame solo los usuarios que viven en países cuyo nombre comience por ‘C’.*/
+select * from users where pais LIKE'c%';
+
+/*26. Dame un listado de usuarios cuyo número de hijos sea par..*/
+select * from users where(hijos%2) = 0 and hijos > 0;
+
+/*27. Consulta los usuarios que tienen exactamente dos hobbies registrados.*/
+
+/*28. ¿Cuántos usuarios hay con edad menor a 18 y que estén casados?*/
+
+
+
+
